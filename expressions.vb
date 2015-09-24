@@ -1,28 +1,56 @@
-Sub Main()
-	
-	'displayTheMessage()
+Module Module1
 
-		'Dim myValue As String = superScretFormula()
-		'Dim myValue As String = superSecretFormula("Bob")
-		'Console.WriteLine(myValue)
+    Sub Main()
 
-		Console.WritLine(superSecretFormula())
-		Console.WriteLine(superSecretFormula("Bob"))
+        Dim x = 0
+        Dim y = 0
+        Dim a = 0
+        Dim b = 0
 
-		Consol.ReadLine()
+        'Assignment Operator
+        x = 3
 
-	End Sub
+        'Addition Operator
+        x = 3 + 4
 
-	'Sub display TheMessage()
-		'Console.WriteLine("From displayTheMessage")
-	'End Sub
+        'Subtraction Operator
+        x = 4 - 3
+
+        'Multipulcation Operator
+        x = 10 * 5
+
+        'Division Operator
+        x = 10 / 5
+
+        'Equality Operator
+        If x = y Then
+            'Stuff goes here
+        End If
+
+        'Greater than or equal to Operator
+        If x >= y Then
+            'Stuff goes here
+        End If
+
+        'Less than or equal to Operator
+        If x <= y Then
+            'stuff goes here
+        End If
+
+        'Condition OR Operator
+        If x > y Or a > b Then
+            'stuff goes here
+        End If
+
+        'Condition AND Operator
+        If x > y And a > b Then
+            'stuff goes here
+        End If
+
+        'Member access and Method invocation
+        Console.WriteLine("Hi!")
 
 
-	'Function superSecretFormula() As String
-		'Return "Hello World!"
-	'End Function
+    End Sub
 
-	Function superSecretFormula(ByVal name As String) As String
-		Return ("Hello World, {0}", name)
-	End Function
-	
+End Module
