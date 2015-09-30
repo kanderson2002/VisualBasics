@@ -2,25 +2,31 @@ Module Module1
 
     Sub Main()
 
-        Dim k = 0
-        Dim w = 0
+        Dim userNumber As String
+        Dim k = userNumber
 
-        For k = 1 To 100
-            Console.WriteLine(k)
+        Console.Write("Choose a number between numbers 1-50? ")
 
-            If (k = 8) Then
-                Console.WriteLine("Found Eight")
-                Exit For
+        userNumber = Console.ReadLine()
 
-            End If
+        If userNumber <= 25 Then
+            Console.WriteLine("You choose a number less than or equal to 25.")
+            For k = userNumber To 0
+                Console.WriteLine(k)
+            Next
+        End If
 
-        Next
+        If userNumber >= 26 Then
+            Console.WriteLine("You choose a number greater than or equal to 26.")
+            For k = userNumber To 0
+                Console.WriteLine(k)
+                Console.WriteLine()
+            Next
 
-        For k = 5 To 100 Step 2
-            Console.WriteLine(k)
-        Next
-
+            Console.WriteLine()
+        End If
         Console.ReadLine()
+
 
     End Sub
 
