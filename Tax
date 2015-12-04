@@ -1,0 +1,18 @@
+
+    Private Sub btnComputeTax_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnComputeTax.Click
+
+        txtTaxDue.Text = 0.03 * (txtIncome.Text - 600 * numDependents.Value)
+
+    End Sub
+
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+
+        txtIncome.Text = "0"
+        numDependents.Value = 0
+        txtTaxDue.Text = "0"
+
+    End Sub
+
+    Private Sub numDependents_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles numDependents.ValueChanged
+
+    End Sub
