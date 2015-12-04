@@ -1,0 +1,75 @@
+'Chapter 4: Auto Loan Calculator
+    'Programmer: Kaitlyn Anderson
+    'Date: 12-1-15 - 12- -15
+    'Purpose: Calculate the monthly payment for a loan based on a loan amount.
+    Dim globalMonths As Double = 60.0
+    Dim numberOfPayments As Integer
+    Const maxLoanAmountAllowed As Integer = 25000
+    Const maxLowCreditAllowed As Double = 5000
+
+
+   
+    Private Sub btnReset_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReset.Click
+        rbtnthree.Checked = False
+        rbtnFive.Checked = False
+        rbtnSeven.Checked = False
+        numLoanAmount.Value = "0.0"
+        numInterestRate.Value = "5.0"
+        txtMonthlyPayment.Text = "$0.00"
+        cmbCredit.SelectedIndex = -1
+    End Sub
+
+    Private Sub btnCompute_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCompute.Click
+
+        Dim dblRate, dblMonths, dblPayment As Double
+        Dim dblLoanAmount As Double, strPayment As String
+        Dim dblAdjustedRate As Double, strErrorMessage As String
+
+        dblLoanAmount = Convert.ToDouble(numLoanAmount.Value)
+        dblRate = (Convert.ToDouble(numInterestRate.Value) / 100 / 12)
+        dblPayment = Pmt(dblRate, globalMonths, -dblLoanAmount)
+        strPayment = Format$(dblPayment, "Currency")
+        txtMonthlyPayment.Text = strPayment
+        If cmbCredit.Text = "" Then
+            MessageBox.Show("Please enter the coustomer's credit rating in the credit rating box.", "No Credit Rating")
+            cmbCredit.Focus()
+            Exit Sub
+        End If
+        Select Case cmbCredit.SelectedIndex
+            Case 0
+                dblAdjustedRate = dblRate
+            Case 1
+                dblAdjustedRate = dblRate * 1.1
+            Case 2
+                dblAdjustedRate = dblRate * 1.15
+            Case 3
+                dblAdjustedRate = dblRate * 1.17
+            Case 4
+                dblAdjustedRate = dblRate * 1.25
+
+        End Select
+
+        dblPayment = Pmt(dblAdjustedRate, globalMonths, -dblLoanAmount)
+        strPayment = Format$(dblPayment, "Currency")
+        txtMonthlyPayment.Text = strPayment
+
+    End Sub
+
+
+    Private Sub rbtnthree_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rbtnthree.CheckedChanged
+        numberOfPayments = 36
+
+    End Sub
+
+    Private Sub rbtnFive_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rbtnFive.CheckedChanged
+        numberOfPayments = 60
+    End Sub
+
+    Private Sub rbtnSeven_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rbtnSeven.CheckedChanged
+        numberOfPayments = 84
+    End Sub
+
+    Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        numLoanAmount.Maximum = maxLoanAmountAllowed
+
+    End Sub
