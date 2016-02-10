@@ -1,0 +1,62 @@
+Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
+
+        lstWeeklyData.Items.Clear()
+
+    End Sub
+
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+
+        Dim objAddItemForm As New EmployeeDataForm
+
+        objAddItemForm.ShowDialog()
+        Do Until objAddItemForm.txtName.Text = ""
+            Dim lviTodaysSales As New ListViewItem(objAddItemForm.txtName.Text)
+
+            lviTodaysSales.SubItems.Add(objAddItemForm.numHours.Value)
+
+            lviTodaysSales.SubItems.Add(Format$(objAddItemForm.txtRate.Text, "Currency"))
+
+            lstWeeklyData.Items.Add(lviTodaysSales)
+            objAddItemForm.ShowDialog()
+
+        Loop
+
+
+    End Sub
+
+    
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+        Dim intIndex, intListCount As Integer
+        Dim sngTotalSales As Single = 0
+        Dim sngTotalWorkerPay As Single = 0
+        Dim strPayRate As Single
+        Dim sngHours As Single
+        Dim strResults As String, strHours As String
+        intListCount = Convert.ToInt32(lstWeeklyData.Items.Count)
+        For intIndex = 0 To intListCount - 1
+            strHours = lstWeeklyData.Items(intIndex).SubItems(1).Text
+            strPayRate = lstWeeklyData.Items(intIndex).SubItems(2).Text
+            strHours = strHours.Replace("$", "0")
+            sngHours = Convert.ToString(strHours)
+            sngTotalSales += sngHours
+            sngTotalWorkerPay += sngHours * strPayRate
+        Next
+        strResults = "Total Hours Worked: " & (sngTotalSales) & ControlChars.NewLine
+        strResults &= "Total  Pay: " & Format$(sngTotalWorkerPay, "Currency")
+        MessageBox.Show(strResults, "Total Hours Paid")
+    End Sub
+
+End Class
+
+==================================================================
+ Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+
+        Me.Close()
+
+    End Sub
+
+    Private Sub Employee_data_Form_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        txtName.Text = ""
+        numHours.Value = 0
+        txtRate.Text = ""
+    End Sub
