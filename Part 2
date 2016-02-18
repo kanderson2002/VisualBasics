@@ -1,0 +1,58 @@
+ Private Sub btnClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClear.Click
+        lstScore.Items.Clear()
+    End Sub
+
+    Private Sub btnEnter_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEnter.Click
+        'Dim objAddItemForm As New frmAddItem
+
+        'objAddItemForm.ShowDialog()
+        'Do Until objAddItemForm.txtItemDescription.Text = ""
+        '    Dim lviTodaysSales As New ListViewItem(objAddItemForm.txtItemDescription.Text)
+
+        '    lviTodaysSales.SubItems.Add(Format$(objAddItemForm.numTotalItemsSale.Value, "Currency"))
+
+        '    If objAddItemForm.chkOnSale.Checked Then
+        '        lviTodaysSales.SubItems.Add("Yes")
+        '    Else
+        '        lviTodaysSales.SubItems.Add("No")
+        '    End If
+
+        '    lstTodaysSales.Items.Add(lviTodaysSales)
+        '    objAddItemForm.ShowDialog()
+
+        'Loop
+        Dim objAddItemForm As New DisplayData
+
+        objAddItemForm.ShowDialog()
+        Do Until objAddItemForm.txtStudent.Text = ""
+
+            Dim lviTodaysSales As New ListViewItem(objAddItemForm.txtStudent.Text)
+
+            lviTodaysSales.SubItems.Add(objAddItemForm.txtScore.Text)
+
+            lstScore.Items.Add(lviTodaysSales)
+            objAddItemForm.ShowDialog()
+
+        Loop
+
+    End Sub
+
+    Private Sub btnDisplay_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDisplay.Click
+        Dim Counter As Integer
+        Dim sngScores As Single = 0
+        Dim strResults As String = ""
+        Dim sngAverage As Single = 0
+        Dim sngListCount As Single = 0
+        sngListCount = Convert.ToSingle(lstScore.Items.Count)
+        For Counter = 0 To sngListCount - 1
+            sngScores = Convert.ToSingle(lstScore.Items(Counter).SubItems(1).Text.Replace("%", ""))
+            sngAverage += sngScores
+        Next
+        sngAverage = sngAverage / sngListCount
+        strResults = "The average score is: " & Format$(sngAverage, "0.00") & "%" & ControlChars.NewLine
+        strResults &= "Number of scores is: " & sngListCount
+        MessageBox.Show(strResults, "Average Score")
+
+
+    End Sub
+End Class
