@@ -1,0 +1,46 @@
+Private Sub btnClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClear.Click
+        numChange.Value = 0
+    End Sub
+
+    Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
+    End Sub
+
+    Private Sub btnOkay_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOkay.Click
+
+        Dim strHalfDollar, strQuarter, strDime, strNickle, strPenny, Change As Short
+        Dim strResults As String = ""
+
+        Change = 100 - numChange.Value
+
+
+        If Change >= 50 Then
+            strHalfDollar += 1
+            Change -= 50
+        End If
+        If Change >= 25 Then
+            strQuarter += 1
+            Change -= 25
+        End If
+        If Change >= 10 Then
+            strDime += 1
+            Change -= 10
+        End If
+        If Change >= 5 Then
+            strNickle += 1
+            Change -= 5
+        End If
+        If Change >= 1 Then
+            strPenny += 1
+            Change -= 1
+        End If
+
+        strResults = "Half Dollars: " & strHalfDollar & ControlChars.NewLine
+        strResults &= "Quarter: " & strQuarter & ControlChars.NewLine
+        strResults &= "Dime: " & strDime & ControlChars.NewLine
+        strResults &= "Nickle: " & strNickle & ControlChars.NewLine
+        strResults &= "Pennies: " & strPenny & ControlChars.NewLine
+        MessageBox.Show(strResults, "Total Change")
+
+
+    End Sub
