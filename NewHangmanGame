@@ -1,0 +1,208 @@
+    Dim Word As String
+    Dim Char1 As String
+    Dim Char2 As String
+    Dim Char3 As String
+    Dim Char4 As String
+    Dim Char5 As String
+    Dim Char6 As String
+    Dim wordLength As Integer
+    Dim gameStarted As Boolean = False
+    Dim rightTrys As Integer
+    Dim WrongTrys As Integer
+    Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        clearLetters()
+        hideCharacterLength()
+    End Sub
+    Public Sub drawHanger()
+        Dim pnt As Graphics
+        pnt = Me.CreateGraphics
+        Dim pencil As New Pen(Color.Black, 2)
+        pnt.DrawLine(pencil, 46, 434, 115, 394)
+        pnt.DrawLine(pencil, 115, 394, 184, 434)
+        pnt.DrawLine(pencil, 115, 394, 115, 220)
+        pnt.DrawLine(pencil, 115, 220, 250, 220)
+        pnt.DrawLine(pencil, 250, 220, 250, 250)
+    End Sub
+    Public Sub resetGame()
+        lblWrongGuesses.Text = ""
+        Dim pnt As Graphics
+        pnt = Me.CreateGraphics
+        pnt.Clear(Color.Maroon)
+        btnPlay.Visible = True
+    End Sub
+    Public Sub ClearLetters()
+        letter1.Text = ""
+        letter2.Text = ""
+        letter3.Text = ""
+        letter4.Text = ""
+        letter5.Text = ""
+        letter6.Text = ""
+    End Sub
+    Public Sub checkForWinner()
+        If rightTrys = wordLength Then
+            MsgBox("You Won!")
+            resetGame()
+        End If
+    End Sub
+    Public Sub StartDrawingWhenLosing(ByVal trys As Integer)
+        Dim pnt As Graphics
+        pnt = Me.CreateGraphics
+        Dim Pencil As New Pen(Color.Black, 2)
+        If trys = 1 Then
+            pnt.DrawEllipse(Pencil, 228, 250, 40, 40)
+        ElseIf trys = 2 Then
+            pnt.DrawLine(Pencil, 248, 290, 248, 370)
+        ElseIf trys = 3 Then
+            pnt.DrawLine(Pencil, 248, 315, 213, 293)
+        ElseIf trys = 4 Then
+            pnt.DrawLine(Pencil, 248, 315, 283, 293)
+        ElseIf trys = 5 Then
+            pnt.DrawLine(Pencil, 248, 369, 213, 391)
+        ElseIf trys = 6 Then
+            pnt.DrawLine(Pencil, 248, 369, 283, 391)
+            TextBox1.Clear()
+            Try
+                letter1.Text = Char1
+                letter2.Text = Char2
+                letter3.Text = Char3
+                letter4.Text = Char4
+                letter5.Text = Char5
+                letter6.Text = Char6
+            Catch ex As Exception
+            End Try
+            MsgBox("You Loose")
+            resetGame()
+        End If
+    End Sub
+    Public Sub AssignLetters()
+        If wordLength = 2 Then
+            Char1 = Word.Chars(0).ToString.ToUpper
+            Char2 = Word.Chars(1).ToString.ToUpper
+        ElseIf wordLength = 3 Then
+            Char1 = Word.Chars(0).ToString.ToUpper
+            Char2 = Word.Chars(1).ToString.ToUpper
+            Char3 = Word.Chars(2).ToString.ToUpper
+        ElseIf wordLength = 4 Then
+            Char1 = Word.Chars(0).ToString.ToUpper
+            Char2 = Word.Chars(1).ToString.ToUpper
+            Char3 = Word.Chars(2).ToString.ToUpper
+            Char4 = Word.Chars(3).ToString.ToUpper
+        ElseIf wordLength = 5 Then
+            Char1 = Word.Chars(0).ToString.ToUpper
+            Char2 = Word.Chars(1).ToString.ToUpper
+            Char3 = Word.Chars(2).ToString.ToUpper
+            Char4 = Word.Chars(3).ToString.ToUpper
+            Char5 = Word.Chars(4).ToString.ToUpper
+        ElseIf wordLength = 6 Then
+            Char1 = Word.Chars(0).ToString.ToUpper
+            Char2 = Word.Chars(1).ToString.ToUpper
+            Char3 = Word.Chars(2).ToString.ToUpper
+            Char4 = Word.Chars(3).ToString.ToUpper
+            Char5 = Word.Chars(4).ToString.ToUpper
+            Char6 = Word.Chars(5).ToString.ToUpper
+        End If
+    End Sub
+
+    Public Sub hideCharacterLength()
+        line1.Visible = False
+        line2.Visible = False
+        line3.Visible = False
+        line4.Visible = False
+        line5.Visible = False
+        line6.Visible = False
+    End Sub
+    Public Sub ShowLength(ByVal VisibleLines As Integer)
+        hideCharacterLength()
+        If VisibleLines = 1 Then
+            line1.Visible = True
+        ElseIf VisibleLines = 2 Then
+            line1.Visible = True
+            line2.Visible = True
+        ElseIf VisibleLines = 3 Then
+            line1.Visible = True
+            line2.Visible = True
+            line3.Visible = True
+        ElseIf VisibleLines = 4 Then
+            line1.Visible = True
+            line2.Visible = True
+            line3.Visible = True
+            line4.Visible = True
+        ElseIf VisibleLines = 5 Then
+            line1.Visible = True
+            line2.Visible = True
+            line3.Visible = True
+            line4.Visible = True
+            line5.Visible = True
+        ElseIf VisibleLines = 6 Then
+            line1.Visible = True
+            line2.Visible = True
+            line3.Visible = True
+            line4.Visible = True
+            line5.Visible = True
+            line6.Visible = True
+        End If
+    End Sub
+
+    Private Sub btnPlay_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPlay.Click
+        Char1 = ""
+        Char2 = ""
+        Char3 = ""
+        Char4 = ""
+        Char5 = ""
+        Char6 = ""
+        drawHanger()
+        Dim number As Integer
+        Randomize()
+        number = Int(Rnd() * ListBox1.Items.Count - 1) + 1
+        Word = ListBox1.Items(number)
+        wordLength = Word.Length
+        ShowLength(Word.Length)
+        ClearLetters()
+        AssignLetters()
+        TextBox1.Focus()
+        rightTrys = 0
+        WrongTrys = 0
+        lblWrongGuesses.Text = "WrongGuesses: "
+        gameStarted = True
+        btnPlay.Visible = False
+    End Sub
+
+    Private Sub TextBox1_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TextBox1.TextChanged
+        If gameStarted = True Then
+            If TextBox1.Text = "" Then
+            Else
+                If TextBox1.Text.ToUpper = Char1 And letter1.Text = "" And Char1 <> "" Then
+                    letter1.Text = Char1
+                    rightTrys += 1
+                    checkForWinner()
+                ElseIf TextBox1.Text.ToUpper = Char2 And letter2.Text = "" And Char2 <> "" Then
+                    letter2.Text = Char2
+                    rightTrys += 1
+                    checkForWinner()
+                ElseIf TextBox1.Text.ToUpper = Char3 And letter3.Text = "" And Char3 <> "" Then
+                    letter3.Text = Char3
+                    rightTrys += 1
+                    checkForWinner()
+                ElseIf TextBox1.Text.ToUpper = Char4 And letter4.Text = "" And Char4 <> "" Then
+                    letter4.Text = Char4
+                    rightTrys += 1
+                    checkForWinner()
+                ElseIf TextBox1.Text.ToUpper = Char5 And letter5.Text = "" And Char5 <> "" Then
+                    letter5.Text = Char5
+                    rightTrys += 1
+                    checkForWinner()
+                ElseIf TextBox1.Text.ToUpper = Char6 And letter6.Text = "" And Char6 <> "" Then
+                    letter6.Text = Char6
+                    rightTrys += 1
+                    checkForWinner()
+                Else
+                    WrongTrys += 1
+                    StartDrawingWhenLosing(WrongTrys)
+                    lblWrongGuesses.Text = lblWrongGuesses.Text & " " & TextBox1.Text
+                End If
+            End If
+        Else
+        End If
+        TextBox1.Text = ""
+    End Sub
+End Class
